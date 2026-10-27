@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Blog Generator | Ollama & Llama 3.2</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-icon">🤖</div>
+      <h1 class="header-title">AI Blog Generator</h1>
+      <p class="header-subtitle">Generate blogs, keywords, summaries and meta descriptions using Ollama</p>
+      <div class="model-badge">Engine: Local Llama 3.2 via Ollama</div>
+    </header>
+
+    <!-- SECTION 1: GENERATE BLOG -->
+    <section class="card">
+      <h2 class="section-title">Generate Blog</h2>
+      
+      <div class="form-group">
+        <label for="topic">Blog Topic</label>
+        <input type="text" id="topic" class="form-control" value="Write a short blog about artificial intelligence" placeholder="Enter blog topic...">
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="writing_style">Writing Style</label>
+          <select id="writing_style" class="form-control">
+            <option value="Informative" selected>Informative</option>
+            <option value="Conversational">Conversational</option>
+            <option value="Technical">Technical</option>
+            <option value="Academic">Academic</option>
+            <option value="Creative">Creative</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tone">Tone</label>
+          <select id="tone" class="form-control">
+            <option value="Friendly" selected>Friendly</option>
+            <option value="Formal">Formal</option>
+            <option value="Casual">Casual</option>
+            <option value="Persuasive">Persuasive</option>
+            <option value="Enthusiastic">Enthusiastic</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="word_count">Word Count</label>
+          <input type="number" id="word_count" class="form-control" value="50" min="50" max="2000" step="50">
+        </div>
+
+        <div class="form-group">
+          <label for="target_audience">Target Audience</label>
+          <input type="text" id="target_audience" class="form-control" value="General Readers" placeholder="e.g. Students, Developers, General Audience">
+        </div>
+      </div>
+
+      <button id="btn-generate-blog" class="btn btn-primary" onclick="generateBlog()">
+        <span class="btn-icon">⚡</span> Generate Blog
+      </button>
+
+      <!-- Output Container -->
+      <div id="blog-output-container" class="output-container" style="display: none;">
+        <div class="output-header">
+          <span class="output-title">AI Generated Blog Output</span>
+          <div class="output-actions">
+            <button class="btn-subtle" onclick="copyBlog()">📋 Copy Blog</button>
+            <button class="btn-subtle" onclick="newChat()">🔄 New Chat</button>
+          </div>
+        </div>
+        <div id="blog-output" class="output-body"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: BLOG TOOLS -->
+    <section class="card">
+      <h2 class="section-title">Blog Tools</h2>
+      <div class="tools-grid">
+        <button class="btn btn-tool" onclick="runTool('titles')">
+          <span class="btn-icon">📑</span> Generate Titles
+        </button>
+        <button class="btn btn-tool" onclick="runTool('keywords')">
+          <span class="btn-icon">🏷️</span> Generate Keywords
+        </button>
+        <button class="btn btn-tool" onclick="runTool('summary')">
+          <span class="btn-icon">📝</span> Generate Summary
+        </button>
+        <button class="btn btn-tool" onclick="runTool('meta')">
+          <span class="btn-icon">🌐</span> Generate Meta Description
+        </button>
+      </div>
+
+      <div id="tool-output-container" class="output-container" style="display: none;">
+        <div class="output-header">
+          <span id="tool-output-label" class="output-title">Tool Result</span>
+        </div>
+        <pre id="tool-output" class="output-pre"></pre>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTENT DETECTION -->
+    <section class="card">
+      <h2 class="section-title">Intent Detection</h2>
+      <div class="form-group">
+        <label for="intent_input">Enter User Request</label>
+        <textarea id="intent_input" class="form-control" rows="2" placeholder="Example: Write a blog about artificial intelligence">Write a blog about artificial intelligence</textarea>
+      </div>
+
+      <button id="btn-detect-intent" class="btn btn-primary" onclick="detectUserIntent()">
+        <span class="btn-icon">🎯</span> Detect Intent
+      </button>
+
+      <div id="intent-output-container" class="intent-result" style="display: none;">
+        <span class="intent-badge-label">Detected Intent:</span>
+        <span id="intent-badge" class="intent-badge">Blog Generation Request</span>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>AI Blog Generator | Ex. No: 2 | Lab Record Experiment (URK23CS1086)</p>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
